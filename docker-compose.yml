@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:latest
+    container_name: prod_db
+    environment:
+      - POSTGRES_PASSWORD=password
+    restart: always
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - capstone
+
+  api:
+    image: jayaanim/capstone_backend:latest
+    container_name: prod_api
+    restart: always
+    networks:
+      - medusa_backend
+      - medusa_frontend
+    depends_on:
+      - db
+
+  # We will need to make a FE container here
+
+  proxy:
+    image: nginx:latest
+    container_name: prod_proxy
+    environment:
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+    ports:
+      - 80:80
+      - 443:443
+    restart: always 
+    networks:
+      - capstone
+    depends_on:
+      - api
+
+networks:    
+  capstone:
+    driver: bridge
+
+volumes:
+  dbdata:
