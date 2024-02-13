@@ -31,20 +31,9 @@ server {
     listen 80;
     listen [::]:80;
     server_tokens off;
-    server_name ${API_DOMAIN};
+    server_name localhost:8080;
 
     return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_tokens off;
-
-    ssl_certificate /ssl_certs/${DOMAIN}/fullchain.pem;
-    ssl_certificate_key /ssl_certs/${DOMAIN}/privkey.pem;
-
-    server_name ${API_DOMAIN};
 
     location / {
         # Proxy to the PHPMyAdmin container
