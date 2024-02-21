@@ -1,38 +1,22 @@
-FROM ubuntu:focal
-
-ARG DEBIAN_FRONTEND="noninteractive"
-ENV PYTHONUNBUFFERED=1
+FROM python:3.11-bullseye 
 
 # Base dependencies
 RUN apt-get update && apt-get install -y \
-    tree parallel gettext vim git wget lsb-release \
-    python3-pip build-essential
+    tree parallel gettext vim git wget lsb-release
 
 # Create app dir
 WORKDIR /api
 
-# Add Python version file
-ADD python.txt /api/
-
-# Install Python version
-RUN apt-get update \
-    && apt-get install -y software-properties-common \
-    && add-apt-repository -y ppa:deadsnakes/ppa \
-    && apt-get update \
-    && apt-get install -y `cat python.txt` lib`cat python.txt`-dev `cat python.txt`-distutils \
-    && echo '`cat python.txt` "$@"' > python \
-    && chmod +x python
-
 # Custom system dependencies
-ADD install.bash /api/
-RUN bash install.bash
+ADD scripts/ /api/
+RUN bash install.sh
 
 # Python dependencies
 ADD requirements.txt /api/
-RUN ./python -m pip install -r requirements.txt
+RUN python3 -m pip install -r requirements.txt
 
 # Add everything else
 ADD . /api/
 
 # Default command
-CMD bash release.bash && bash deploy.bash
+CMD bash scripts/release.sh && bash scripts/deploy.sh

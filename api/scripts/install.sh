@@ -1,7 +1,6 @@
 #!/bin/bash
+# Installs needed image libraries
 
 set -eou pipefail
 
-
-# GIS lib
 apt-get -y install binutils libproj-dev gdal-bin
