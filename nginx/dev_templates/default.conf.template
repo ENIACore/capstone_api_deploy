@@ -31,9 +31,7 @@ server {
     listen 80;
     listen [::]:80;
     server_tokens off;
-    server_name localhost:8080;
-
-    return 301 https://$host$request_uri;
+    server_name localhost;
 
     location / {
         # Proxy to the PHPMyAdmin container
@@ -51,5 +49,5 @@ server {
 #}
 
 upstream api-upstream {
-    server api:8080;
+    server capstone_api:8080;
 }

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Runs entire application stack on EC2 server (must be ran with ```bash deploy_scripts/deploy.sh``` from vacation_helper dir)
 
 #Ensure environment variables are set, includes ALL environment variables injected into containers
 setEnv() {
