@@ -1,6 +1,12 @@
 #!/bin/bash
-# Runs docker image locally (must be ran with ```bash scripts/dev_run.sh``` from api dir)
-# Binds to port 80
-# Names container capstone_api
+# Runs api locally without a container and makes necessary commands before doing so (assumes that the db container is running already)
 
-docker run -p 80:8080 -d --name capstone_api jayaanim/capstone_api:latest
+python3 manage.py collectstatic --no-input
+python3 manage.py migrate --no-input
+
+export DJANGO_SUPERUSER_PASSWORD=uncommonpassword1234
+export DJANGO_SUPERUSER_USERNAME=admin
+export DJANGO_SUPERUSER_EMAIL=admin@email.com
+
+python3 manage.py createsuperuser --noinput
+python3 manage.py runserver
