@@ -11,7 +11,14 @@ services:
     networks:
       - capstone_be
     environment:
+      - POSTGRES_DB=Capstone
+      - POSTGRES_USER=postgresql
       - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
   capstone_api:
     build: ../api/
@@ -24,7 +31,8 @@ services:
       - capstone_fe
       - capstone_be
     depends_on:
-      - capstone_db
+      capstone_db:
+        condition: service_healthy
 
   # We will need to make a FE container here
 

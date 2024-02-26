@@ -1,6 +1,8 @@
 #!/bin/bash
 # Used by docker image to start api using wsgi                                     
 
+bash release.sh
+
 PORT=${PORT:="8080"}
 WEB_COUNT=${WEB_COUNT:="2"}
 

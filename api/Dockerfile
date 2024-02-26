@@ -15,8 +15,7 @@ RUN python3 -m pip install -r requirements.txt
 # Add everything else
 ADD . /
 
-# Collect static and migrate
-RUN bash release.sh
+ENV DJANGO_SETTINGS_MODULE=api.settings.production
 
 # Run wsgi server
 CMD ["scripts/deploy.sh"]
