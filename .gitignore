@@ -138,6 +138,10 @@ api/venv/
 api/ENV/
 api/env.bak/
 api/venv.bak/
+api/static
+api/media
+api/static/
+api/media/
 
 # Spyder project settings
 .spyderproject

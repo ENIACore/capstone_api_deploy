@@ -1,4 +1,4 @@
 #!/bin/bash
-# Runs entire application stack on EC2 server (must be ran with ```bash deploy_scripts/deploy.sh``` from vacation_helper dir)
+# Runs entire application stack locally for testing (must be ran with ```bash deploy_scripts/dev_deploy.sh``` from vacation_helper dir)
 
-docker-compose -f docker/docker-compose-dev.yml up
+docker-compose -f docker/docker-compose-dev.yml up -d --build

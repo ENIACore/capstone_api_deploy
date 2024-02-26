@@ -53,6 +53,16 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         # Additional proxy settings if required
     }
+
+    location /static/ {
+        autoindex on;
+        alias /etc/static/;
+    }
+
+    location /media/ {
+        autoindex on;
+        alias /etc/media/;
+    }
 }
 
 #uncomment when fe container is added to stack
