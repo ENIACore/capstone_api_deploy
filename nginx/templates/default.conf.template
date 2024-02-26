@@ -42,8 +42,8 @@ server {
     server_tokens off;
     server_name ${API_DOMAIN};
 
-    ssl_certificate /ssl_certs/${DOMAIN}/fullchain.pem;
-    ssl_certificate_key /ssl_certs/${DOMAIN}/privkey.pem;
+    ssl_certificate /ssl_certs/live/${DOMAIN}/fullchain.pem;
+    ssl_certificate_key /ssl_certs/live/${DOMAIN}/privkey.pem;
 
     location / {
         # Proxy to the PHPMyAdmin container

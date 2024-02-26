@@ -35,9 +35,9 @@ services:
     volumes:
       - ../nginx/templates:/etc/nginx/templates
       - ../nginx/conf/nginx.conf:/etc/nginx/nginx.conf
-      - ../ssl_certs:/ssl_certs
+      - /root/capstone_api_deploy/ssl_certs:/ssl_certs
       - api_static:/etc/static
-      - api_medisa:/etc/media
+      - api_media:/etc/media
     networks:
       - capstone_fe
     ports:

@@ -11,8 +11,15 @@ setEnv() {
 		echo "Please enter the domain and sub-domain credentials for this deployment (do not include http or https but do include .com)"
 
 		# Ask for environment variables
+		echo ""
 		echo "Do not include http/https for following input"
 		read -p "Enter the value for DOMAIN: " domain
+		echo ""
+
+		echo ""
+		echo "Do not include http/https for following input"
+		read -p "Enter the value for subdomain: " api_domain
+		echo ""
 
 		# Update environment variables in /etc/profile
 		export DOMAIN=$domain >> /etc/profile
@@ -61,16 +68,17 @@ if [[ $redeploy_choice == "y" || $redeploy_choice == "Y" ]]; then
 	sudo snap refresh core
 	sudo snap install --classic certbot
 	sudo ln -s /snap/bin/certbot /usr/bin/certbot
-	sudo certbot --config-dir /ssl_certs --apache
+	sudo apt-get install apache2
+	sudo certbot --config-dir /root/capstone_api_deploy/ssl_certs --apache
 
 	echo "Starting production services"
-	docker-compose up -d
+	docker-compose -f docker/docker-compose.yml up -d
 else
 	echo "Stopping running services and pulling in latest images"
-	docker-compose down
+	docker-compose -f docker/docker-compose.yml down
 	docker container prune -f
-	docker-compose pull
+	docker-compose -f docker/docker-compose.yml pull
 
 	echo "Starting new production services"
-	docker-compose up -d
+	docker-compose -f docker/docker-compose.yml up -d
 fi
