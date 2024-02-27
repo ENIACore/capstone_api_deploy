@@ -1,9 +1,14 @@
 from django.db import models
 from api import globals
+from trip import models as trip_models
+
 
 
 # Location from json is nested inside result { ... } json obj
 class Location(models.Model):
+
+    # One (Trip) to Many (Locations), related name is for reverse lookup from trip
+    trip = models.ForeignKey(trip_models.Trip, related_name='locations', on_delete=models.CASCADE)
 
     addr_address = models.CharField(max_length=globals.MAX_CHAR_FIELD)
 
@@ -39,23 +44,14 @@ class Location(models.Model):
     website = models.URLField(max_length=globals.MAX_CHAR_FIELD)
 
     # Nested obj from json req, geometry: { location: { lat: ..., lng: ...} ....}
-    geometry_location_lat = models.DecimalField()
+    latitude = models.DecimalField(max_digits=globals.MAX_DECIMAL_DIGITS, decimal_places=globals.MAX_DECIMAL_PLACES)
 
-    geometry_location_lng = models.DecimalField()
-
-    # Nested x2 obj from json req, geometry: { location: ...., viewport: { northeast: { lat: ..., lng: ... }, southwest: { lat ..., lng: ...} } }
-    geometry_viewport_northeast_lat = models.DecimalField()
-
-    geometry_viewport_northeast_lng = models.DecimalField()
-
-    geometry_viewport_southwest_lat = models.DecimalField()
-
-    geometry_viewport_southwest_lng = models.DecimalField()
+    longitude = models.DecimalField(max_digits=globals.MAX_DECIMAL_DIGITS, decimal_places=globals.MAX_DECIMAL_PLACES)
 
     # Nested obj from json req, plus_code: { compound_code: ..., global_code: ... }
-    plus_code_compound_code = models.CharField(max_length=globals.MAX_CHAR_FIELD)
+    compound_code = models.CharField(max_length=globals.MAX_CHAR_FIELD)
 
-    plus_code_global_code = models.CharField(max_length=globals.MAX_CHAR_FIELD)
+    global_code = models.CharField(max_length=globals.MAX_CHAR_FIELD)
 
 
 
