@@ -142,6 +142,7 @@ api/static
 api/media
 api/static/
 api/media/
+api/dev_db/**
 
 # Spyder project settings
 .spyderproject
