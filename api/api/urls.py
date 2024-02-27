@@ -15,7 +15,7 @@ trips_router = routers.NestedDefaultRouter(router, 'trips', lookup='trip')
 trips_router.register(r'locations', location_views.LocationViewSet, basename='locations')
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/api/v1/')),
+    path('', RedirectView.as_view(url='v1/')),
     path('v1/', include(router.urls)),
     path('v1/', include(trips_router.urls)),
     path('v1/login', user_views.LoginView.as_view(), name='account_login'),
