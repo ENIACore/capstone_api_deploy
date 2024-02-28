@@ -10,7 +10,6 @@ from user.serializers import ClientSerializer
 
 from django.contrib.auth import authenticate, login, logout
 
-#Using APIView because it is designed for AJAX
 class LoginView(views.APIView):
     def post(self, request, format=None):
         data = json.loads(request.body)
@@ -39,7 +38,7 @@ class LoginView(views.APIView):
             }, status=status.HTTP_401_UNAUTHORIZED)
 
 class LogoutView(views.APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, format=None):
         logout(request)
@@ -53,12 +52,11 @@ class ClientViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self): #type: ignore
         if self.request.method in permissions.SAFE_METHODS:
-            return (permissions.AllowAny(),)
+            return [permissions.AllowAny()]
+        elif self.request.method == 'POST':
+            return [permissions.AllowAny()]
 
-        if self.request.method == 'POST':
-            return (permissions.AllowAny(),)
-
-        return (permissions.IsAuthenticated(), IsUserOwner(),)
+        return [permissions.IsAuthenticated(), IsUserOwner()]
 
     def create(self, request): #type: ignore
         serializer = self.serializer_class(data=request.data)

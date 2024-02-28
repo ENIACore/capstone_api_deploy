@@ -264,7 +264,9 @@ IN UML IN THIS ORDER============================================================
     "website": "http://google.com/",
 
     "geometry": {
+        <----------- !!!This Data Is Saved In DB As latitude and longitude, geometry/location levels are removed/flattened!!!
       "location": { "lat": -33.866489, "lng": 151.1958561 },
+        <----------- !!!Viewport Data Not Included In DB!!!
       "viewport": {
         "northeast": { "lat": -33.8655112697085, "lng": 151.1971156302915 },
         "southwest": { "lat": -33.86820923029149, "lng": 151.1944176697085 }
@@ -272,6 +274,7 @@ IN UML IN THIS ORDER============================================================
     },
 
     "plus_code": {
+        <----------- !!!This Data Is Saved In DB As compound_code and global_code, plus_code level is removed/flattened!!!
       "compound_code": "45MW+C8 Pyrmont NSW, Australia",
       "global_code": "4RRH45MW+C8"
     },
