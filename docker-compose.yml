@@ -28,18 +28,17 @@ services:
     depends_on:
       - capstone_db
 
-  # We will need to make a FE container here
-
   capstone_proxy:
     image: nginx:latest
     container_name: capstone_proxy_prod
     restart: always
     volumes:
-      - ../nginx/templates:/etc/nginx/templates
-      - ../nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/templates:/etc/nginx/templates
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - /root/capstone_api_deploy/ssl_certs:/ssl_certs
       - api_static:/etc/static
       - api_media:/etc/media
+      - frontend_build:/etc/build
     networks:
       - capstone_fe
     ports:
@@ -61,3 +60,5 @@ volumes:
   db_data:
   api_static:
   api_media:
+  frontend_build:
+    external: true

@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-n_nb4sb14=^k(8y*m!fjxze8q*t836pz_l7kmtk*2%f)2#oba2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [ 'ciphernetron.com', ]
+ALLOWED_HOSTS = [ 'ciphernetron.com', 'api.ciphernetron.com', '.ciphernetron.com' ]
 CSRF_TRUSTED_ORIGINS = [ 'http://ciphernetron.com', 'https://ciphernetron.com', 'https://*.ciphernetron.com', 'http://*.ciphernetron.com' ]
 
 # Database
@@ -27,4 +27,8 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     'https://ciphernetron.com',
+    'http://ciphernetron.com',
+    'https://api.ciphernetron.com',
+    'http://api.ciphernetron.com',
 ]
+
