@@ -19,6 +19,8 @@ urlpatterns = [
     path(r'', include(trips_router.urls)),
     path(r'login', user_views.LoginView.as_view(), name='account_login'),
     path(r'logout', user_views.LogoutView.as_view(), name='account_logout'),
+    path(r'csrf', user_views.CSRFCookie.as_view(), name='csrf'),
+    path(r'user', user_views.ClientView.as_view(), name='user'),
 ]
 
 urlpatterns += router.urls
