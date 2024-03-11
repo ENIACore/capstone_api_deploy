@@ -8,6 +8,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [ 'ciphernetron.com', 'api.ciphernetron.com', '.ciphernetron.com' ]
 CSRF_TRUSTED_ORIGINS = [ 'http://ciphernetron.com', 'https://ciphernetron.com', 'https://*.ciphernetron.com', 'http://*.ciphernetron.com' ]
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -32,3 +33,4 @@ CORS_ALLOWED_ORIGINS = [
     'http://api.ciphernetron.com',
 ]
 
+CSRF_COOKIE_HTTPONLY = False

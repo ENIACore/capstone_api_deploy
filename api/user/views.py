@@ -15,6 +15,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 from django.shortcuts import get_object_or_404
 
+
 ensure_csrf = method_decorator(ensure_csrf_cookie)
 class CSRFCookie(views.APIView):
     permission_classes = []
@@ -28,7 +29,7 @@ class LoginView(views.APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request, format=None):
-        data = json.loads(request.body)
+        data = request.data
 
         email = data.get('email', None)
         password = data.get('password', None)
@@ -59,6 +60,10 @@ class LogoutView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, format=None):
+        # Get CSRF token from the cookie
+        csrf_token_cookie = request.COOKIES.get('csrftoken')
+        request.csrf_processing_done = False
+
         logout(request)
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
@@ -68,6 +73,9 @@ class ClientView(views.APIView):
     permission_classes = [permissions.AllowAny]
 
     def get(self, request, format=None):
+        # Get CSRF token from the cookie
+        csrf_token_cookie = request.COOKIES.get('csrftoken')
+
         if (self.request.user.is_authenticated):
             client = get_object_or_404(Client, username=request.user.username)
             serializer = ClientSerializer(client)
