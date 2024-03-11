@@ -62,6 +62,8 @@ if [[ $redeploy_choice == "y" || $redeploy_choice == "Y" ]]; then
 	docker container prune -f
 	docker image prune -a -f
 
+    docker run -v frontend_build:/app/build jayaanim/capstone_frontend:latest
+
     
 	sudo apt install snapd
 	sudo snap install core

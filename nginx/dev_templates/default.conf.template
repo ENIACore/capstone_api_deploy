@@ -1,32 +1,3 @@
-#server {
-#    listen 80;
-#    listen [::]:80;
-#    server_tokens off;
-#    server_name ${DOMAIN};
-
-#    return 301 https://$host$request_uri;
-#}
-
-#server {
-#    listen 443 ssl http2;
-#    listen [::]:443 ssl http2;
-#    server_tokens off;
-
-#    ssl_certificate /ssl_certs/${DOMAIN}/fullchain.pem;
-#    ssl_certificate_key /ssl_certs/${DOMAIN}/privkey.pem;
-
-#    server_name ${DOMAIN};
-
-#    location / {
-        # Proxy to the PHPMyAdmin container
-#        proxy_pass http://api-upstream;
-#        proxy_set_header Host $host;
-#        proxy_set_header X-Real-IP $remote_addr;
-#        proxy_set_header X-Forwarded-Proto $scheme;
-        # Additional proxy settings if required
-#    }
-#}
-
 server {
     listen 80;
     listen [::]:80;
@@ -34,30 +5,36 @@ server {
     server_name localhost;
 
     location / {
-        # Proxy to the PHPMyAdmin container
-        proxy_pass http://api-upstream;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        # Additional proxy settings if required
-    }
-
-    location /static/ {
-        autoindex on;
-        alias /etc/static/;
-    }
-
-    location /media/ {
-        autoindex on;
-        alias /etc/media/;
+        root /etc/build;
+        index index.html;
+        try_files $uri $uri/ /index.html;
     }
 }
 
-#uncomment when fe container is added to stack
-#upstream fe-upstream {
-#    server fe;
+#server {
+#    listen 80;
+#    listen [::]:80;
+#    server_tokens off;
+#    server_name localhost;
+
+#    location / {
+#        proxy_pass http://api-upstream;
+#        proxy_set_header Host $host;
+#        proxy_set_header X-Real-IP $remote_addr;
+#        proxy_set_header X-Forwarded-Proto $scheme;
+#    }
+
+#    location /static/ {
+#        autoindex on;
+#        alias /etc/static/;
+#    }
+
+#    location /media/ {
+#        autoindex on;
+#        alias /etc/media/;
+#    }
 #}
 
-upstream api-upstream {
-    server capstone_api:8080;
-}
+#upstream api-upstream {
+#    server capstone_api:8080;
+#}
