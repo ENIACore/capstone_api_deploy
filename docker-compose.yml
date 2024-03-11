@@ -4,7 +4,7 @@ services:
 
   capstone_db:
     image: postgres:latest
-    container_name: capstone_db_dev
+    container_name: capstone_db_prod
     restart: always
     volumes:
       - db_data:/var/lib/mysql

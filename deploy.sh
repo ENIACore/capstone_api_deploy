@@ -72,13 +72,13 @@ if [[ $redeploy_choice == "y" || $redeploy_choice == "Y" ]]; then
 	sudo certbot --config-dir /root/capstone_api_deploy/ssl_certs --apache
 
 	echo "Starting production services"
-	docker-compose -f docker/docker-compose.yml up -d
+	docker-compose -f docker-compose.yml up -d
 else
 	echo "Stopping running services and pulling in latest images"
-	docker-compose -f docker/docker-compose.yml down
+	docker-compose -f docker-compose.yml down
 	docker container prune -f
-	docker-compose -f docker/docker-compose.yml pull
+	docker-compose -f docker-compose.yml pull
 
 	echo "Starting new production services"
-	docker-compose -f docker/docker-compose.yml up -d
+	docker-compose -f docker-compose.yml up -d
 fi
