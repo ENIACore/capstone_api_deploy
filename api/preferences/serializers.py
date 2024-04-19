@@ -4,5 +4,5 @@ from preferences import models
 
 class PreferenceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Preference
+        model = models.Preference
         fields = '__all__'
