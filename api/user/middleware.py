@@ -8,6 +8,5 @@ class CsrfTokenMiddleware(MiddlewareMixin):
             csrf_token_cookie = request.COOKIES.get('csrftoken')
             
             if csrf_token_cookie:
-                print("header not found, setting it")
                 request.META['HTTP_X_CSRFTOKEN'] = csrf_token_cookie
 
