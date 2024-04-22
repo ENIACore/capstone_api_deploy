@@ -1,12 +1,18 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+from user import models as user_models
 
 class Preference(models.Model):
+
+    client = models.OneToOneField(user_models.Client, related_name='preference', on_delete=models.CASCADE)
     
     min_rating = models.FloatField(default=0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
     max_rating = models.FloatField(default=0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
 
-    min_price = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(4)])
-    max_price = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(4)])
+    min_price = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    max_price = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+
     #Google types
     shopping_mall = models.BooleanField(default=False)
     zoo = models.BooleanField(default=False)

@@ -6,6 +6,7 @@ from django.views.generic import RedirectView
 from user import views as user_views
 from trip import views as trip_views
 from location import views as location_views
+from preferences import views as preference_views
 
 router = routers.DefaultRouter()
 router.register(r'users', user_views.ClientViewSet)
@@ -20,6 +21,7 @@ urlpatterns = [
     path(r'login', user_views.LoginView.as_view(), name='account_login'),
     path(r'logout', user_views.LogoutView.as_view(), name='account_logout'),
     path(r'csrf', user_views.CSRFCookie.as_view(), name='csrf'),
+    path(r'preferences', preference_views.PreferenceAPIView.as_view(), name='preferences'),
     path(r'user', user_views.ClientView.as_view(), name='user'),
 ]
 

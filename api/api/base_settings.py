@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'user',
     'trip',
     'location',
+    'preferences',
 
     'corsheaders',
 ]
