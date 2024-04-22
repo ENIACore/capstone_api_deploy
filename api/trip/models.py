@@ -9,7 +9,7 @@ class Trip(models.Model):
     # read this to see options used: https://www.django-rest-framework.org/api-guide/relations/
     client = models.ForeignKey(user_models.Client, related_name='trips', on_delete=models.CASCADE)
 
-    name = models.CharField(max_length=globals.MAX_SHORT_CHAR_FIELD, blank=False, verbose_name="Trip Name")
+    title = models.CharField(max_length=globals.MAX_SHORT_CHAR_FIELD, blank=False, verbose_name="Trip Name")
     description = models.TextField(blank=True, verbose_name="Trip Description")
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -18,4 +18,4 @@ class Trip(models.Model):
     favorite = models.BooleanField(default=False, verbose_name="Favorite Trip")
 
     def __unicode__(self):
-        return self.name
+        return self.title

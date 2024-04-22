@@ -6,5 +6,5 @@ class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Trip
 
-        fields = ['id', 'name', 'description', 'favorite', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'description', 'favorite', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
